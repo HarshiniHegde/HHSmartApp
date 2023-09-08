@@ -32,7 +32,9 @@
             return result
         })
         var response= await observations.json();
-        document.getElementById("patientName").innerHTML=   appInfo.smart.patient.name[0].given.join(' ') + appInfo.smart.patient.name[0].family.join(' ');
+       // document.getElementById("patientName").innerHTML=   appInfo.smart.patient.name[0].given.join(' ') + appInfo.smart.patient.name[0].family.join(' ');
+
+       document.getElementById("patientName").innerHTML=   appInfo.smart.patient.id;
         
 
         // var byCodes = smart.byCodes(obv, 'code');
