@@ -52,6 +52,21 @@
         console.log(observationsValue)
     }
 
+
+    const getPatientInformation = async ()=>{
+        let patient = await fetch(appInfo.smart.state.serverUrl + '/Patient/?_id=' +appInfo.smart.patient.id,{
+            headers:{
+                "Accept":"application/json+fhir",
+                "Authorization":"Bearer "+ appInfo.smart.state.tokenResponse.access_token
+            }
+        }).then(result =>{
+            console.log("PAtient Success")
+            return result
+        });
+        var response= await patient.json();
+        console.log(response)
+    }
+
     
     </script>
     <meta charset="UTF-8">
