@@ -23,7 +23,7 @@
 
     const observations = async ()=>{
         console.log("inside getPatientInformation")
-        let observations = await fetch(appInfo.smart.state.serverUrl + '/Observation/?patient=' +appInfo.smart.patient.id,{
+        let observations = await fetch(appInfo.smart.state.serverUrl + '/Observation/?patient=' +appInfo.smart.patient.id + '&code=http://loinc.org|8302-2,http://loinc.org|2085-9, http://loinc.org|2089-1',{
             headers:{
                 "Accept":"application/json+fhir",
                 "Authorization":"Bearer "+ appInfo.smart.state.tokenResponse.access_token
