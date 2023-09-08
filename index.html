@@ -15,6 +15,7 @@
             appInfo.smart = client;
             console.log('appInfo',appInfo,'client',client, 'client.patient',client?.patient )
             observations();
+            getPatientInformation();
         })
         .then(console.log)
         .catch(console.error);
@@ -37,7 +38,7 @@
        document.getElementById("patientName").innerHTML=  "Patient ID :" +  appInfo.smart.patient.id;
         
 
-         var byCodes = appInfo.smart.byCodes(observations, 'code');
+         var byCodes = appInfo.smart.byCodes(response, 'code');
           
 
          var height = byCodes('8302-2');
