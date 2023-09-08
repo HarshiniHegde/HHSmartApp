@@ -32,9 +32,25 @@
             return result
         })
         var response= await observations.json();
-        $("observations").text(JSON.stringify(response))
-        console.log(response)
+        document.getElementById("patientName").innerHTML=   appInfo.smart.patient.name[0].given.join(' ') + appInfo.smart.patient.name[0].family.join(' ');
+        
+
+        var byCodes = smart.byCodes(obv, 'code');
+          
+
+          var height = byCodes('8302-2');
+        //   var systolicbp = getBloodPressureValue(byCodes('55284-4'),'8480-6');
+        //   var diastolicbp = getBloodPressureValue(byCodes('55284-4'),'8462-4');
+          var hdl = byCodes('2085-9');
+          var ldl = byCodes('2089-1');
+          const observationsValue =  "Height is " + height + "HDL "+ hdl + "LDL" + ldl
+
+          document.getElementById("observations").innerHTML=  observations
+        
+        console.log(observations)
     }
+
+    
     </script>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -45,6 +61,9 @@
     <h1>
         this is HH's smart app
     </h1>
+    <h2 is="patientName">
+
+    </h2>
     <div id="observations"></div>
 </body>
 </html>
