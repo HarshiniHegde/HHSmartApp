@@ -20,7 +20,7 @@
         .catch(console.error);
 
 
-    async function getPatientInformation(){
+    const observations = async function getPatientInformation(){
         console.log("inside getPatientInformation")
         let observations = await fetch(appInfo.smart.state.serverUrl + '/Observation/?patient=' +appInfo.smart.patient.id,{
             headers:{
@@ -29,8 +29,11 @@
             }
         }).then(result =>{
             console.log("Success")
-            console.log(result)
+            return result
         })
+        var response= await observations.json();
+        $("observations").text(JSON.stringify(response))
+        console.log(response)
     }
     </script>
     <meta charset="UTF-8">
@@ -42,5 +45,6 @@
     <h1>
         this is HH's smart app
     </h1>
+    <div id="observations"></div>
 </body>
 </html>
