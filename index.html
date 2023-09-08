@@ -35,7 +35,7 @@
         var response= await observations.json();
        // document.getElementById("patientName").innerHTML=   appInfo.smart.patient.name[0].given.join(' ') + appInfo.smart.patient.name[0].family.join(' ');
 
-       document.getElementById("patientName").innerHTML=  "Patient ID :" +  appInfo.smart.patient.id;
+       document.getElementById("patientID").innerHTML=  "Patient ID :" +  appInfo.smart.patient.id;
         
 
          var byCodes = appInfo.smart.byCodes(response, 'code');
@@ -66,6 +66,8 @@
         });
         var response= await patient.json();
         console.log(response)
+        const patientDetails = response.entry[0].text.div;
+        document.getElementById("patientName").innerHTML=   patientDetails;
     }
 
     
@@ -79,6 +81,9 @@
     <h1>
         this is HH's smart app
     </h1>
+    <h2 id="patientID">
+
+    </h2>
     <h2 id="patientName">
 
     </h2>
