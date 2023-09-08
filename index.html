@@ -21,6 +21,7 @@
 
 
     async function getPatientInformation(){
+        console.log("inside getPatientInformation")
         let observations = await fetch(appInfo.smart.state.serverUrl + '/Observation/?patient=' +appInfo.smart.patient.id,{
             headers:{
                 "Accept":"application/json+fhir",
