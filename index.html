@@ -14,9 +14,23 @@
         .then(client => {
             appInfo.smart = client;
             console.log('appInfo',appInfo,'client',client, 'client.patient',client?.patient )
+            getPatientInformation();
         })
         .then(console.log)
         .catch(console.error);
+
+
+    async function getPatientInformation(){
+        let observations = await fetch(appInfo.smart.state.serverUrl + '/Observation/?patient=' +appInfo.smart.patient.id,{
+            headers:{
+                "Accept":"application/json+fhir",
+                "Authorization":"Bearer "+ appInfo.smart.state.tokenResponse.access_token
+            }
+        }).then(result =>{
+            console.log("Success")
+            console.log(result)
+        })
+    }
     </script>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
