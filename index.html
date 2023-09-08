@@ -35,19 +35,19 @@
         document.getElementById("patientName").innerHTML=   appInfo.smart.patient.name[0].given.join(' ') + appInfo.smart.patient.name[0].family.join(' ');
         
 
-        var byCodes = smart.byCodes(obv, 'code');
+        // var byCodes = smart.byCodes(obv, 'code');
           
 
-          var height = byCodes('8302-2');
-        //   var systolicbp = getBloodPressureValue(byCodes('55284-4'),'8480-6');
-        //   var diastolicbp = getBloodPressureValue(byCodes('55284-4'),'8462-4');
-          var hdl = byCodes('2085-9');
-          var ldl = byCodes('2089-1');
-          const observationsValue =  "Height is " + height + "HDL "+ hdl + "LDL" + ldl
+        //   var height = byCodes('8302-2');
+        // //   var systolicbp = getBloodPressureValue(byCodes('55284-4'),'8480-6');
+        // //   var diastolicbp = getBloodPressureValue(byCodes('55284-4'),'8462-4');
+        //   var hdl = byCodes('2085-9');
+        //   var ldl = byCodes('2089-1');
+        //   const observationsValue =  "Height is " + height + "HDL "+ hdl + "LDL" + ldl
 
-          document.getElementById("observations").innerHTML=  observations
+        //   document.getElementById("observations").innerHTML=  observations
         
-        console.log(observations)
+        // console.log(observations)
     }
 
     
