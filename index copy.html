@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   
+    <script src="https://cdn.jsdelivr.net/npm/fhirclient/build/fhir-client.js"></script>
+    <script>
+    let appInfo={}
+    // FHIR.oauth2.ready()
+    //     .then(client => client.request("Patient"))
+    //     .then(console.log)
+    //     .catch(console.error);
+
+    FHIR.oauth2.ready()
+        .then(client => {
+            appInfo.smart = client;
+            console.log('appInfo',appInfo,'client',client, 'client.patient',client?.patient )
+            observations();
+            getPatientInformation();
+        })
+        .then(console.log)
+        .catch(console.error);
+    
+
+    const observations = async ()=>{
+        console.log("inside getPatientInformation")
+        let observations = await fetch(appInfo.smart.state.serverUrl + '/Observation/?patient=' +appInfo.smart.patient.id + '&code=http://loinc.org|8302-2,http://loinc.org|2085-9, http://loinc.org|2089-1',{
+            headers:{
+                "Accept":"application/json+fhir",
+                "Authorization":"Bearer "+ appInfo.smart.state.tokenResponse.access_token
+            }
+        }).then(result =>{
+            console.log("Success")
+            return result
+        })
+        var response= await observations.json();
+       // document.getElementById("patientName").innerHTML=   appInfo.smart.patient.name[0].given.join(' ') + appInfo.smart.patient.name[0].family.join(' ');
+
+       document.getElementById("patientID").innerHTML=  "Patient ID :" +  appInfo.smart.patient.id;
+        
+
+         var byCodes = appInfo.smart.byCodes(response, 'code');
+          
+
+         var height = byCodes('8302-2');
+        // //   var systolicbp = getBloodPressureValue(byCodes('55284-4'),'8480-6');
+        // //   var diastolicbp = getBloodPressureValue(byCodes('55284-4'),'8462-4');
+          var hdl = byCodes('2085-9');
+          var ldl = byCodes('2089-1');
+          const observationsValue =  "Height is " + height + "HDL "+ hdl + "LDL" + ldl
+
+           document.getElementById("observations").innerHTML=  observationsValue
+        
+        console.log(observationsValue)
+    }
+
+
+    const getPatientInformation = async ()=>{
+        let patient = await fetch(appInfo.smart.state.serverUrl + '/Patient/?_id=' +appInfo.smart.patient.id,{
+            headers:{
+                "Accept":"application/json+fhir",
+                "Authorization":"Bearer "+ appInfo.smart.state.tokenResponse.access_token
+            }
+        }).then(result =>{
+            console.log("PAtient Success")
+            return result
+        });
+        var response= await patient.json();
+        console.log(response)
+        const patientDetails = response.entry[0].resource.text.div;
+        document.getElementById("patientName").innerHTML=   patientDetails;
+    }
+
+    
+    </script>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HH's Sample Smart App</title>
+</head>
+<body>
+    <h1>
+        this is HH's smart app
+    </h1>
+    <h2 id="patientID">
+
+    </h2>
+    <h2 id="patientName">
+
+    </h2>
+    <div id="observations"></div>
+</body>
+</html>
